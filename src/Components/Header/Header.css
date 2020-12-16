@@ -1,0 +1,51 @@
+.App {
+    text-align: center;
+}
+
+header {
+    padding: 200px;
+}
+
+header h2 {
+    font-size: 35px;
+    color: #0d0e18;
+}
+
+span {
+    display: block;
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo-check {
+    font-size: 35px;
+    color: #bec0cf;
+}
+
+
+/* button */
+
+#create-here {
+    padding: 14px;
+    font-size: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: #929497;
+    border: 3px #909499 solid;
+    box-shadow: 0 3px 0 #5b5b5e;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+#create-here:active {
+    box-shadow: 0 3px 0 #929497;
+    transform: translateY(3px);
+}
+
+#create-here a {
+    text-decoration: none;
+    color: white;
+}

@@ -1,0 +1,88 @@
+.add-list-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.add-list-button, 
+.back-button {
+    margin: 5px;
+    padding: 5px;
+    font-size: 15px;
+    margin-top: 15px;
+    border-radius: 10px;
+    background-color: #929497;
+    border: 3px #929497 solid;
+    box-shadow: 0 3px #929497;
+    color: white;
+    cursor: pointer;
+
+}
+
+.add-list-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 2px #929497 solid;
+    border-radius: 20px;
+    padding: 15px;
+    width: 75%;
+}
+
+#category-dropdown {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 20px;
+}
+
+.list-label {
+    font-size: 20px;
+    padding: 5px;
+    color: #3d405b;
+}
+
+.add-name-input {
+    border-radius: 20px;
+    padding: 5px;
+    width: 60%;
+}
+
+.add-note-input {
+    border-radius: 20px;
+    padding: 5px;
+    width: 60%;
+    height: 100px;
+}
+
+.add-price-input{
+    border-radius: 20px;
+    padding: 5px;
+    width: 30%;
+    height: auto;
+
+}
+
+.add-Weight-input{
+    border-radius: 20px;
+    padding: 5px;
+    width: 30%;
+    height: auto;
+
+}
+
+.register-button {
+    color: white;
+}
+
+.register-button:hover {
+    color:#36332c;
+}
+
+.logout-button {
+    color: white;
+}
+
+.login-button {
+    color: white;
+}
+
