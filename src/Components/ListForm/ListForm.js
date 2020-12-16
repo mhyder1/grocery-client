@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Context from "../../Context/Context";
-import ValidateionError from "../Validation/ValidationError";
+//import ValidateionError from "../Validation/ValidationError";
 import ListData from "../../../src/listData" 
 import BackButton from "../BackButton/BackButton";
 import "./ListForm.css"
@@ -16,47 +16,50 @@ class ListForm extends Component {
         }
     }
 
-    state = {
+   state = {
         selCategory: this.props.match.params.category,
         lists: {
             name: "",
-            touched: false,
+         touched: false,
 
-        }
+       },
+       note: "",
+       price: "",
+       
+        
+   }
 
-    }
+    //handleSubmit = (e) => {
+       // e.preventDefault();
+        //let name = e.target.name.value;
+        //let note = e.target.note.value;
+        //let category = this.state.selCategory;
+        //let price = e.target.price.value;
+        //let weight = e.target.weight.value;
+       // let checked = false
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        let name = e.target.name.value;
-        let note = e.target.note.value;
-        let category = this.state.selCategory;
-        let price = e.target.price.value;
-        let weight = e.target.weight.value;
-        let checked = false
+        // let list = this.context.createList(list);
+        // this.props.history.push("/grocery-list")
 
-        let list = this.context.createList(list);
-        this.props.history.push("/grocery-list")
-
-        this.setState ({
-            lists : list
-        })
+        // this.setState ({
+        //     lists : list
+        // })
 
         
         
-    }
+   // }
 
-    validateName = () => {
-        let listName = this.state.name.value.trim();
-        if(listName.name === 0) {
-            return "Name your list!";
+    //validateName = () => {
+        //let listName = this.state.name.value.trim();
+       // if(listName.name === 0) {
+           // return "Name your list!";
 
-        } else if (listName.length < 3) {
-            return "your list must be at least 3 charecters long";
-        } else if (listName.lenght > 15) {
-            return "your list cannot exceed 15 charecters";
-        }
-    };
+        //} else if (listName.length < 3) {
+          //  return "your list must be at least 3 charecters long";
+       // } else if (listName.lenght > 15) {
+           // return "your list cannot exceed 15 charecters";
+        //}
+    //};
 
     updateList = (name) => {
         this.setState({
@@ -66,19 +69,19 @@ class ListForm extends Component {
         })
     }
 
-    changeCategory = (e) => {
-        let categoryId = Number(e.target.value);
-        let category = this.context.categories.find((c) => c.id === categoryId);
-        this.setState ({
-            selCategory: category.category,
-            category_id: category.id
+    // changeCategory = (e) => {
+    //     let categoryId = Number(e.target.value);
+    //     let category = this.context.categories.find((c) => c.id === categoryId);
+    //     this.setState ({
+    //         selCategory: category.category,
+    //         category_id: category.id
 
-        });
-    }
+    //     });
+    // }
 
     render() {
         let categories = this.context.category;
-        let nameError = this.validateName();
+        //let nameError = this.validateName();
         return(
             <div className="add-list">
                 <form className="add-list-form">
@@ -123,23 +126,21 @@ class ListForm extends Component {
                          
                          
                          <select
-                         onChange = {(e) => this.changeCategory(e)}
+                        //  onChange = {(e) => this.changeCategory(e)}
                          name = "category_id"
                          id="category-dropdown"
-                         >
-                             {categories.map((category, index) => (
-                                 <option
-                                 key={index}
-                                 value={category.id}
-                                 selected = {
-                                     category.category === this.props.match.params.category ? "selected" : false
-                                 }
-                                 >
-                                     {category.category}
+                        >
+                            <option>
+                                Veg
+                            </option>
+                            <option>
+                                Fruit
+                             </option>
+                            <option>
+                                 grain
+                             </option>
 
-                                 </option>
-
-                             ))}
+                
                             
                         </select>
                         <button className="add-list-button"

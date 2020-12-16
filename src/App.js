@@ -56,13 +56,13 @@ class App extends React.Component {
     
   }
 
-  deleteList = (listid) => {
-    let newList = list.splice(list, 1);
-    this.setState({
-      lists: newList
-    })
+   //const deleteList = (listid) => {
+    //newList = list.splice(listid, 1);
+    //this.setState({
+     // lists: newList
+    //})
     
-  };
+  //};
 
   updateList = (editList) => {
     

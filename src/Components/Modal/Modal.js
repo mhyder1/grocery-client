@@ -7,9 +7,9 @@ import ListData from "../../../src/listData";
 function Modal(props) {
     let context = useContext(Context);
 
-    deleteList =(listid)  => {
+   // deleteList =(listid)  => {
 
-    }
+   // }
 
     let showHideClassName = props.show 
        ? "modal display-block" 
@@ -60,7 +60,7 @@ function Modal(props) {
                     </Link>
                     <button
                        className="delete-button"
-                       onClick={(e) => deleteList(Number(list.id), context.deleteList)}
+                       //onClick={(e) => deleteList(Number(list.id), context.deleteList)}
                     >
                         Delete
 
