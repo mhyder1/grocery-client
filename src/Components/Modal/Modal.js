@@ -1,11 +1,13 @@
 import React, {useContext} from "react";
 import {Link} from "react-router-dom";
 import Context from "../../Context/Context";
-import ListData from "../../../src/listData";
+
+
 
 
 function Modal(props) {
     let context = useContext(Context);
+
 
    // deleteList =(listid)  => {
 
@@ -15,7 +17,7 @@ function Modal(props) {
        ? "modal display-block" 
        : "modal display-none";
 
-       let list = context.list.find((list) => list.id === Number(props.match.params.id)) || {};
+       let list = this.context.lists.find((list) => list.id === Number(props.match.params.id)) || {};
 
     return (
         <div className={showHideClassName}>

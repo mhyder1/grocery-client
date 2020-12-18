@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Context from "../../Context/Context";
-import ValidateionError from "../Validation/ValidationError";
-
+// import ValidationError from "../Validation/ValidationError";
 import BackButton from "../BackButton/BackButton";
 import "./ListForm.css";
+import listData from "../../../src/listData";
 class ListForm extends Component {
-    static contextType = Context;
-    
+  static contextType = Context;
   static defaultProps = {
     match: {
       params: {
@@ -16,15 +15,9 @@ class ListForm extends Component {
   };
   state = {
     selCategory: this.props.match.params.category,
-    lists: {
-      name: "",
-      touched: false,
-    },
-    name: "",
-    note: "",
-    price: "",
-    weight: "",
-    category: "",
+    lists: listData.lists,
+    categories: listData.categories,
+    touched: false,
   };
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value})
@@ -34,49 +27,57 @@ class ListForm extends Component {
     const {name, note, category, price, weight} = this.state
     const list = {name, note, category, price, weight}
     console.log(list)
-    // let checked = false;
+    let checked = false;
     this.context.createList(list);
     this.props.history.push("/grocery-list");
-    // this.setState ({
-    //     lists : list
-    // })
+      this.setState ({
+         lists : list
+     })
   };
-  // validateName = () => {
-  //     let listName = this.state.name.value.trim();
-  //     if(listName.name === 0) {
-  //         return "Name your list!";
-  //     } else if (listName.length < 3) {
-  //         return "your list must be at least 3 charecters long";
-  //     } else if (listName.lenght > 15) {
-  //         return "your list cannot exceed 15 charecters";
-  //     }
-  // };
-  // updateList = (name) => {
-  //     this.setState({
-  //         lists: {
-  //         }
-  //     })
+   
+   updateList = (name) => {
+       this.setState({
+           lists: {
+           }
+       })
+  }
+  // why my validationlist is not working //
+  // validateList() {
+  //   let list = this.state.lists.value.trim();
+  //   if (list.name === 0) {
+  //     return "list name required";
+  //   } else if (list.name.length < 3) {
+  //     return "list name must be at least 3 charecter long";
+  //   }
   // }
   changeCategory = (e) => {
-    let categoryId = Number(e.target.value);
-    let category = this.context.categories.find((c) => c.id === categoryId);
+    let category_Id = Number(e.target.value);
+    let categories = this.context.categories.find((c) => c.id === category_Id);
     this.setState({
-      selCategory: category.category,
-      category_id: category.id,
+      selCategory: categories,
+      category_Id: category_Id
     });
   };
   render() {
     console.log(this.context);
-    let { categories } = this.context;
+    let  categories  = this.context;
     console.log(categories);
-    // let nameError = this.validateName();
+     //let nameError = this.validateList();
     return (
       <div className="add-list">
         <form className="add-list-form" onSubmit={this.handleSubmit}>
           <h2>Create Grocery list</h2>
           <div className="add-list-section">
             <label className="list-label">Name:</label>
-            <input type="text" name="name" className="add-name-input" value={this.state.name} onChange={this.handleChange}/>
+            <input
+              type="text"
+              name="name" className="add-name-input"
+              value={this.state.name}
+              onChange={this.updateList}
+            />
+            {/* {this.state.list.touched && (
+              <ValidationError message={nameError} />
+            )} */}
             <label className="list-label">Note:</label>
             <input className="add-note-input" type="text" name="note" value={this.state.note} onChange={this.handleChange}/>
             <label className="list-label">Price:</label>
@@ -84,22 +85,24 @@ class ListForm extends Component {
             <label className="list-label">Weight:</label>
             <input className="add-Weight-input" type="text" name="weight" value={this.state.weight} onChange={this.handleChange}/>
             <select
+              onChange={this.changeCategory}
               name="category_id"
               id="category-dropdown"
-              name="category"
+              value={this.state.category}
             >
-              
-                <option>
-                  
+              {listData.categories.map((category, index) => (
+                <option
+                  key={index}
+                  value={category.category}
+                  defaultValue={
+                    category.category === this.props.match.params.category
+                      ? "selected"
+                      : false
+                  }
+                >
+                  {category.category}
                 </option>
-                <option>
-                  
-                </option>
-                <option>
-                  
-                </option>
-                        
-              
+              ))}
             </select>
             <button className="add-list-button" type="submit">
               Create List

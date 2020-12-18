@@ -1,45 +1,61 @@
 import React from "react";
 import Context from "../../Context/Context";
+import listData from "../../listData";
 
 
 class EditList extends React.Component {
     static ContextType = Context;
 
     state = {
-        id:"",
-        name: "",
-        note: "",
-        price: "",
-        weight: "",
-        category: "",
-        category_id:"",
-        checked:""
+        lists: listData.lists,
+        categories: listData.categories
 
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
         let {
-            id,
-            name,
-            note,
-            price,
-            weight,
-            category,
-            checked,
-            category_id,
+            lists: [
+                {
+                    id,
+                    name,
+                    note,
+                    price,
+                    weight,
+                    category,
+
+                }
+            ],
+            categories: [
+                {
+                    category_Id,
+                }
+            ]
+                
+                
+
+            
             
 
         } = this.state;
         let newList = {
-            id,
-            name,
-            note,
-            price,
-            weight,
-            category,
-            checked,
-            category_id,
+            lists: [
+                {
+                    id,
+                    name,
+                    note,
+                    price,
+                    weight,
+                    category,
+
+                }
+            ],
+            categories: [
+                {
+                    category_Id,
+
+                }
+            ]
             
         }
         this.resetFields();
@@ -50,11 +66,23 @@ class EditList extends React.Component {
 
     resetFields = () => {
         this.setState ({
-            id:"",
-            name: "",
-            note: "",
-            price: "",
-            weight: ""
+            lists: [
+                {
+                    id:"",
+                    name: "",
+                    note: "",
+                    price: "",
+                    weight: "",
+                    category: "",
+                }
+            ],
+            categories: [
+                {
+                    category_Id: ""
+                }
+            ]
+                
+            
         })
     }
     handleUpdateName = (e) => {
@@ -70,9 +98,14 @@ class EditList extends React.Component {
         })
     }
 
-    handleupdatePrice = (e) => {
+    handleUpdatePrice = (e) => {
         this.setState({
             price: e.target.value,
+        })
+    }
+    handleUpdateWeight = (e) => {
+        this.setState({
+            weight: e.target.value
         })
     }
 
@@ -81,7 +114,7 @@ class EditList extends React.Component {
     }
 
     render() {
-        let {id, name, note, price, weight} = this.state;
+        // let {id, name, note, category,category_Id} = this.state;
         return(
             <div className="edit-lists">
                 <form onSubmit ={(e) => this.handleSubmit(e)} clasName="edit-form">

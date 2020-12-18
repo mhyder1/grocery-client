@@ -1,67 +1,67 @@
 let listData =  {
-    "Categories": [
+    "categories": [
         {
             "category_Id" : "1",
-            "CategoryName": "Vegetables"
+            "category": "Vegetables"
         },
         {
             "category_Id" : "2",
-            "CategoryName": "Fruits"
+            "category": "Fruits"
         },
         {
             "category_Id" : "3",
-            "CategoryName": "Grain"
+            "category": "Grain"
         },
         {
             "category_Id" : "4",
-            "CategoryName": "Frozen"
+            "category": "Frozen"
         },
         {
             "category_Id" : "5",
-            "CategoryName": "Miscellaneous"
+            "category": "Miscellaneous"
         },
     ],
     "lists": [
         {    "id" : "1",
-            "Name": "Cabbage",
+            "name": "Cabbage",
             "note" : "Store name",
-            "category_Id": "1",
+            "category": "Vegetables",
             "price": "2.05",
-            "Weight": "2 lbs",
+            "weight": "2 lbs",
         },
 
         {
             "id" : "2",
-            "Name": "Maize",
+            "name": "Maize",
             "note" : "next week new deal",
-            "category_Id": "3",
+            "category": "Grain",
             "price": "3.05",
-            "Weight": "3 lbs",
+            "weight": "3 lbs",
         },
 
         {
             "id" : "3",
-            "Name": "Pineapple",
+            "name": "Pineapple",
             "note" : "next week new deal",
-            "category_Id": "2",
+            "category": "Fruits",
             "price": "5.05",
-            "Weight": "2 piece"
+            "weight": "2 piece"
         },
         {
             "id" : "4",
-            "Name": "Frozen Strawberris",
+            "name": "Frozen Strawberris",
             "note" : "next week new deal",
-            "category_Id": "4",
+            "category": "Frozen",
             "price": "5.05",
-            "Weight": "3 lbs"
+            "weight": "3 lbs"
         },
         {
             "id" : "5",
-            "Name": "Toilet Paper",
+            "name": "Toilet Paper",
             "note" : "next week new deal",
-            "category_Id": "5",
+            "category": "Miscellaneous",
             "price": "5.05",
-            "Weight": "1 pack"
+            "weight": "1 pack"
         },
     ]
     

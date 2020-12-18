@@ -1,5 +1,6 @@
 import React from "react"; 
 
+
 let Context = React.createContext({
     lists: [],
     categories: [],
@@ -12,8 +13,6 @@ let Context = React.createContext({
     deleteList: () => { },
     updateList: () => { },
     getEstimate: () => { },
-    listData: [],
-    categoriesData: [],
 
 });
 

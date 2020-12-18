@@ -13,31 +13,35 @@ import Features from "./Components/Features/Features";
 import Footer from "./Components/Footer/Footer";
 import Register from "./Components/Register/Register";
 import List from "./Components/Lists/List"
-import ListData from "./listData"
-import Modal from "./Components/Modal/Modal"
 import GroceryList from "./Components/GroceryList/GroceryList"
+import listData from "./listData"
+
 
 class App extends React.Component {
-  
+ 
   state = {
+    lists: listData.lists,
+    categories: listData.categories,
     user: {
       userName: "",
       user_id: "",
     },
-    lists: [],
-    categories: [],
-    //toggleComplete: (id) => {
-      //this.setState({
-       // lists: this.state.listData.map(list) => {
-         // if(list.id === id) {
-            //list.checked = !list.checked;
-            //let checked = list.checked;
-            //let listcheck = {id,checked}
-         //}
-          //return lists
-        //}
-      //})
-    //}
+   
+
+    
+    toggleComplete: (id) => {
+      this.setState({
+        lists: this.state.lists.map((list) => {
+          if (list.id === id) {
+            list.checked = !list.checked;
+            let checked = list.checked;
+            let listChecked = { id, checked };
+          }
+          return list;
+         })
+        
+        })
+      }
 
   };
 
@@ -49,26 +53,39 @@ class App extends React.Component {
 
   }
 
+  setCategories = (categories) => {
+    this.setState({categories})
+  }
+
   setUser = () => {
     
   }
 
   createList = (list) => {
+    this.setState({
+      lists: [...this.state.lists, list],
+    });
     
   }
 
-   //const deleteList = (listid) => {
-    //newList = list.splice(listid, 1);
-    //this.setState({
-     // lists: newList
-    //})
+  deleteList = (listid) => {
+    let newLists =this.state.lists.filter((lid) => lid.id !== listid);
+      this.setState({
+        lists: newLists
+    })
     
-  //};
+  };
 
   updateList = (editList) => {
+    this.setState({
+      lists: this.state.lists.map((l) =>
+        l.id !== editList.id ? l : editList
+      ),
+    });
     
   };
   render() {
+     
     /* remove state from handler */
         let contextValue = {
          lists: this.state.lists,
@@ -82,8 +99,6 @@ class App extends React.Component {
          createList: this.createList,
          deleteList: this.deleteList,
           updateList: this.updateList,
-         listData: this.lisdata,
-         CategoriesData: this.categoriesData
     };
     return (
       
@@ -116,7 +131,7 @@ class App extends React.Component {
                      "/complated-lists/:id"
 
                    ]}
-                   render={(props) => <GroceryList{...props} checked={false} />}
+                   render={(props) => <GroceryList {...props} checked={false} />}
                  
                  />
                  <Route
@@ -128,7 +143,7 @@ class App extends React.Component {
                      "/complated-lists/:id"
 
                    ]}
-                   render={(props) => <GroceryList{...props} checked={true} />}
+                   render={(props) => <GroceryList {...props} checked={true} />}
                  
                  />
                  <div className="view-list">
@@ -136,7 +151,7 @@ class App extends React.Component {
                      exact
                      path={["/grocery-list/:id", "/completed-list/:id"]}
                      render={(props) => (
-                       <list {...props} selected={this.state.selected} />
+                       <List {...props} selected={this.state.selected} />
                      )}
                    >
 

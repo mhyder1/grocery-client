@@ -1,22 +1,24 @@
 import React from "react";
 import Context from "../../Context/Context";
 import { Link } from "react-router-dom";
-import ListData from "../../../src/listData"
+import listData from "../../../src/listData"
 
 
 
-class List extends React.Component {
+class lists extends React.Component {
     static contextType = Context;
 
     state={
-        lists: ListData,
+        listss: listData,
+        categories: listData
 
     };
 
-
-    deleteName() {
-
+    deletelists = (listid, cb) => {
+        
     }
+
+
 
 
     
@@ -24,44 +26,44 @@ class List extends React.Component {
 
     render() {
 
-        let listData = this.context.lists.find(
-            (list) => list.id === Number(this.props.match.params.id)
+        let lists = this.context.lists.find(
+            (list) => lists.id === Number(this.props.match.params.id)
         ) || {};
         return(
             <React.Fregment>
-                <div className="view-list-task">
-                    <h2>{listData.name}</h2>
-                    <h3 className="view-list-category">category: {listData.category}</h3>
-                    <div className="list-textbox">
-                     <p>{listData.note}</p>
+                <div className="view-lists-task">
+                    <h2>{lists.name}</h2>
+                    <h3 className="view-lists-category">category: {lists.category}</h3>
+                    <div className="lists-textbox">
+                     <p>{lists.note}</p>
                     </div>
-                    <div className="list-textbox">
-                     <p>{listData.price}</p>
+                    <div className="lists-textbox">
+                     <p>{lists.price}</p>
                     </div>
-                    <div className="list-textbox">
-                     <p>{listData.weight}</p>
+                    <div className="lists-textbox">
+                     <p>{lists.weight}</p>
                     </div>
-                    <div className="list-details">
-                        <div className="list-created-date">
+                    <div className="lists-details">
+                        <div className="lists-created-date">
                             <p>
                                 Created on:
                                 <span />
-                                {new Date(listData.create_date).toLocaleDateString()}
+                                {new Date(lists.create_date).toLocaleDateString()}
                             </p>
                         </div>
                         <div className="todo-checkbox">
                             <p>
                                 <input className="checkmark"
                                 type="checkbox"
-                                checked={listData.checked ? true : false}
-                                onClick={() => this.context.toggleComplate(listData.id)}
+                                checked={lists.checked ? true : false}
+                                onClick={() => this.context.toggleComplate(lists.id)}
                                  />{" "}
                                  Completed?
                             </p>
 
                         </div>
-                        <div className="edit-delete-list">
-                            <Link to={`/edit-list/${listData.id}`}>
+                        <div className="edit-delete-lists">
+                            <Link to={`/edit-lists/${lists.id}`}>
                                 <button className="edit-button"> Edit
 
                                 </button>
@@ -70,8 +72,8 @@ class List extends React.Component {
                             <button
                               className="delete-button"
                               onClick={(e) => 
-                                this.deleteList(
-                                    Number(this.props.match.params.id), this.context.deleteList
+                                this.deletelists(
+                                    Number(this.props.match.params.id), this.context.deletelists
                                 )
                             }
                             >
@@ -80,10 +82,10 @@ class List extends React.Component {
                             </button>
 
                         </div>
-                        <div className="close-list">
+                        <div className="close-lists">
                             <button
                              className="close-button"
-                             onClick={() => this.props.history.push("/gorcery-list-lists")}
+                             onClick={() => this.props.history.push("/gorcery-lists")}
                             >
                                 Close
 
@@ -102,4 +104,4 @@ class List extends React.Component {
 }
 
 
-export default List;
+export default lists;
