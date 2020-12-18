@@ -41,7 +41,7 @@ class GroceryList extends React.Component {
                 </div>
                 <div className={this.props.checked ? "complated-lists" : "pending-lists"}>
                     <ul>
-                        {this.context.lists.fileter((list) => list.checked === this.props.checked).map((list, i) => (
+                        {this.context.listData.fileter((list) => list.checked === this.props.checked).map((list, i) => (
                             <li key={i} className= {list.category}>
                                 <div className="view-list-desktop">
                                    <Link to = {`/grocery-list/${list.id}`}>{list.name}</Link>

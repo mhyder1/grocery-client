@@ -18,6 +18,7 @@ import Modal from "./Components/Modal/Modal"
 import GroceryList from "./Components/GroceryList/GroceryList"
 
 class App extends React.Component {
+  
   state = {
     user: {
       userName: "",
@@ -68,23 +69,25 @@ class App extends React.Component {
     
   };
   render() {
-    let contextValue = {
-      lists: this.state.lists,
-      categories: this.state.categories,
-      user: this.state.user,
-      setLoggedInUserLists: this.state.setLoggedInUserLists,
-      setUser: this.state.setUser,
-      setCategories: this.state.setCategories,
-      handleLogout: this.state.handleLogout,
-      toggleComplete: this.state.toggleComplete,
-      createList: this.state.createList,
-      deleteList: this.state.deleteList,
-      updateList: this.state.updateList,
-
+    /* remove state from handler */
+        let contextValue = {
+         lists: this.state.lists,
+         categories: this.state.categories,
+         user: this.state.user,
+         setLoggedInUserLists: this.state.setLoggedInUserLists,
+         setUser: this.state.setUser,
+         setCategories: this.setCategories,
+         handleLogout: this.handleLogout,
+         toggleComplete: this.toggleComplete,
+         createList: this.createList,
+         deleteList: this.deleteList,
+          updateList: this.updateList,
+         listData: this.lisdata,
+         CategoriesData: this.categoriesData
     };
     return (
       
-      <Context.Provider value={contextValue}>
+     <Context.Provider value = {contextValue}> 
         <ErrorPage>
           <div className="App">
             <Route path="/" component={Navbar} />

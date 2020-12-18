@@ -1,6 +1,5 @@
 import React from "react";
 import Context from "../../Context/Context";
-import Categories from "../../../src/listData"
 import {Link} from "react-router-dom"
 import "./CategoriesPage.css";
 

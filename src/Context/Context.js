@@ -11,7 +11,10 @@ let Context = React.createContext({
     createList: () => { },
     deleteList: () => { },
     updateList: () => { },
-    getEstimate: () => {},
+    getEstimate: () => { },
+    listData: [],
+    categoriesData: [],
+
 });
 
 export default Context;
