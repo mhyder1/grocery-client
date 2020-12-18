@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
 
 
 
+
 class GroceryList extends React.Component {
     static contextType = Context;
 
@@ -27,6 +28,8 @@ class GroceryList extends React.Component {
     };
 
     render() {
+        console.log(Context.newArray);
+        let newArray = this.context.lists.filter((list) => list.checked === this.props.checked);
         return(
             <div className= {`GroceryList ${this.props.checked}`}>
                 <h2>{this.props.checked ?  "Completed" : "Pending"}Lists</h2>
@@ -41,7 +44,7 @@ class GroceryList extends React.Component {
                 </div>
                 <div className={this.props.checked ? "complated-lists" : "pending-lists"}>
                     <ul>
-                        {this.context.listData.fileter((list) => list.checked === this.props.checked).map((list, i) => (
+                        {newArray.map((list, i) => (
                             <li key={i} className= {list.category}>
                                 <div className="view-list-desktop">
                                    <Link to = {`/grocery-list/${list.id}`}>{list.name}</Link>

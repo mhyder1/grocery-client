@@ -95,7 +95,7 @@ class App extends React.Component {
          setUser: this.state.setUser,
          setCategories: this.setCategories,
          handleLogout: this.handleLogout,
-         toggleComplete: this.toggleComplete,
+         toggleComplete: this.state.toggleComplete,
          createList: this.createList,
          deleteList: this.deleteList,
           updateList: this.updateList,

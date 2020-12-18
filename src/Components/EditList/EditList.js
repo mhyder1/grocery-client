@@ -114,7 +114,7 @@ class EditList extends React.Component {
     }
 
     render() {
-        // let {id, name, note, category,category_Id} = this.state;
+        let {name, note, price, weight} = this.state;
         return(
             <div className="edit-lists">
                 <form onSubmit ={(e) => this.handleSubmit(e)} clasName="edit-form">
@@ -125,7 +125,8 @@ class EditList extends React.Component {
                         </label>
                         <input  
                         onChange={(e) => this.handleUpdateName(e)}
-                        className="edit-list-input"
+                            className="edit-list-input"
+                        value={name}
                         name = "name"
                         type="text"
                         />
@@ -136,7 +137,8 @@ class EditList extends React.Component {
                            onChange={(e) => this.handleUpdateNote(e)}
 
                            className="edit-note-input"
-                           type="text"
+                            type="text"
+                            value={note}
                            name="note"
                         />
                         <label className="edit-list-label"
@@ -148,7 +150,8 @@ class EditList extends React.Component {
                         <input  
                            onChange={(e) => this.handleUpdatePrice(e)}
                            className="edit-price-input"
-                           type="text"
+                            type="text"
+                            value={price}
                            name="price"
                         />
                         <label 
@@ -160,7 +163,8 @@ class EditList extends React.Component {
                         <input  
                             onChange={(e) => this.handleUpdateWeight(e)}
                            className="edit-weight-input"
-                           type="text"
+                            type="text"
+                            value={weight}
                            name="weight"
                         />
                         <button className="edit-list-button" type="submit">

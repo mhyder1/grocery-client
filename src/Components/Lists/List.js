@@ -1,21 +1,17 @@
 import React from "react";
 import Context from "../../Context/Context";
 import { Link } from "react-router-dom";
-import listData from "../../../src/listData"
 
 
 
-class lists extends React.Component {
+
+class Lists extends React.Component {
     static contextType = Context;
 
-    state={
-        listss: listData,
-        categories: listData
-
-    };
+    
 
     deletelists = (listid, cb) => {
-        
+
     }
 
 
@@ -104,4 +100,4 @@ class lists extends React.Component {
 }
 
 
-export default lists;
+export default Lists;

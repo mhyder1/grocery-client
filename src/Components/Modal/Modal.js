@@ -62,7 +62,7 @@ function Modal(props) {
                     </Link>
                     <button
                        className="delete-button"
-                       //onClick={(e) => deleteList(Number(list.id), context.deleteList)}
+                    //    onClick={(e) => deleteList(Number(list.id), context.deleteList)}
                     >
                         Delete
 
