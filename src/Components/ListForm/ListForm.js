@@ -30,7 +30,7 @@ class ListForm extends Component {
     const {name, note, category, price, weight} = this.state
     const list = {name, note, category, price, weight}
     console.log(list)
-    //let checked = false;
+    let checked = false;
     this.context.createList(list);
     this.props.history.push("/grocery-lists");
       this.setState ({

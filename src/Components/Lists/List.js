@@ -64,7 +64,7 @@ class List extends React.Component {
                             <button
                               className="delete-button"
                               onClick={(e) => 
-                                this.deletelists(
+                                this.deleteList(
                                     Number(this.props.match.params.id), this.context.deletelists
                                 )
                             }

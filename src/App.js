@@ -35,7 +35,7 @@ class App extends React.Component {
           if (list.id === id) {
             list.checked = !list.checked;
             let checked = list.checked;
-            //let listChecked = { id, checked };
+            let listChecked = { id, checked };
           }
           return list;
          })
@@ -86,8 +86,7 @@ class App extends React.Component {
   };
   render() {
      
-    /* remove state from handler */
-        let contextValue = {
+    let contextValue = {
          lists: this.state.lists,
          categories: this.state.categories,
          user: this.state.user,
@@ -102,7 +101,7 @@ class App extends React.Component {
     };
     return (
       
-     <Context.Provider value = {contextValue}> 
+     <Context.Provider value={contextValue}> 
         <ErrorPage>
           <div className="App">
             <Route path="/" component={Navbar} />
@@ -134,7 +133,7 @@ class App extends React.Component {
                    render={(props) => <GroceryList {...props} checked={false} />}
                  
                  />
-                 {/* <Route
+                  <Route
                    exact
                    path={[
                      "/grocery-lists",
@@ -145,13 +144,13 @@ class App extends React.Component {
                    ]}
                    render={(props) => <GroceryList {...props} checked={true} />}
                  
-                 /> */}
+                 /> 
                  <div className="view-list">
                    <Route
                      exact
                      path={["/grocery-lists/:id", "/completed-lists/:id"]}
                      render={(props) => (
-                       <List {...props} selected={this.state.selected} />
+                       <List {...props} selected={this.state} />
                      )}
                    >
 

@@ -138,7 +138,7 @@ class EditList extends React.Component {
                            name="price"
                         />
                         <label 
-                           className="edit-weight-input"
+                           className="edit-list-input"
                         >
                             Weight:
 

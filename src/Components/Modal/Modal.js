@@ -17,7 +17,7 @@ function Modal(props) {
        ? "modal display-block" 
        : "modal display-none";
 
-       let list = this.context.lists.find((list) => list.id === Number(props.match.params.id)) || {};
+       let list = context.lists.find((list) => list.id === Number(props.match.params.id)) || {};
 
     return (
         <div className={showHideClassName}>
@@ -39,7 +39,7 @@ function Modal(props) {
                     <p>
                         Created on:
                         <span>
-                            {new Date (list.start_date).toLocalDateString()}
+                            {/* {new Date (list.start_date).toLocalDateString()} */}
                         </span>
                     </p>
 
