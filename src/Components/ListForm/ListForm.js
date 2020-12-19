@@ -3,7 +3,8 @@ import Context from "../../Context/Context";
 // import ValidationError from "../Validation/ValidationError";
 import BackButton from "../BackButton/BackButton";
 import "./ListForm.css";
-import listData from "../../../src/listData";
+
+
 class ListForm extends Component {
   static contextType = Context;
   static defaultProps = {
@@ -15,9 +16,11 @@ class ListForm extends Component {
   };
   state = {
     selCategory: this.props.match.params.category,
-    lists: listData.lists,
-    categories: listData.categories,
-    touched: false,
+    list: {
+      value: "",
+      touched: false,
+    }
+    
   };
   handleChange = (e) => {
     this.setState({[e.target.name]: e.target.value})
@@ -27,9 +30,9 @@ class ListForm extends Component {
     const {name, note, category, price, weight} = this.state
     const list = {name, note, category, price, weight}
     console.log(list)
-    let checked = false;
+    //let checked = false;
     this.context.createList(list);
-    this.props.history.push("/grocery-list");
+    this.props.history.push("/grocery-lists");
       this.setState ({
          lists : list
      })
@@ -37,7 +40,9 @@ class ListForm extends Component {
    
    updateList = (name) => {
        this.setState({
-           lists: {
+         lists: {
+           value: name,
+           touched: true,
            }
        })
   }
@@ -90,7 +95,7 @@ class ListForm extends Component {
               id="category-dropdown"
               value={this.state.category}
             >
-              {listData.categories.map((category, index) => (
+              {this.context.categories.map((category, index) => (
                 <option
                   key={index}
                   value={category.category}

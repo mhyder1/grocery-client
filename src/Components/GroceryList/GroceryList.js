@@ -28,11 +28,11 @@ class GroceryList extends React.Component {
     };
 
     render() {
-        console.log(Context.newArray);
-        let newArray = this.context.lists.filter((list) => list.checked === this.props.checked);
+        //let {list} = this.context.lists.filter((list) => list.checked === this.props.checked);
+
         return(
             <div className= {`GroceryList ${this.props.checked}`}>
-                <h2>{this.props.checked ?  "Completed" : "Pending"}Lists</h2>
+                <h2>{this.props.checked ?  "completed" : "pending"}Lists</h2>
                 <div className="create-list-mobile">
                     <Link to="/grocery-list-categories">
                         <button className="create-list-button">
@@ -42,12 +42,12 @@ class GroceryList extends React.Component {
                     </Link>
 
                 </div>
-                <div className={this.props.checked ? "complated-lists" : "pending-lists"}>
+                <div className={this.props.checked ? "completed-lists" : "pending-lists"}>
                     <ul>
-                        {newArray.map((list, i) => (
+                        {this.context.lists.filter((list) => list.checked === this.props.checked).map((list, i) => (
                             <li key={i} className= {list.category}>
                                 <div className="view-list-desktop">
-                                   <Link to = {`/grocery-list/${list.id}`}>{list.name}</Link>
+                                   <Link to = {`/grocery-lists/${list.id}`}>{list.name}</Link>
 
                                 </div>
                                 <div className="view-list-modal">
@@ -60,7 +60,7 @@ class GroceryList extends React.Component {
                                        onClick={this.showModal}
                                        className="view-list-modal-button"
                                      >
-                                         <Link to={`/grocery-list/${list.id}`}> {list.name}
+                                        <Link to={`/grocery-lists/${list.id}`}> {list.name}
                                          </Link>
 
                                      </button>
@@ -68,8 +68,8 @@ class GroceryList extends React.Component {
 
                                 </div>
                                 {list.checked === true ? (
-                                    <span className="checkmark-lists">
-                                         <FaCheckCircle className="completed-check-logo" />
+                                    <span className="checkmark-list">
+                                         <FaCheckCircle className ="completed-check-logo" />
 
                                     </span>
                                 ):(

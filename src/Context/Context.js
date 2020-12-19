@@ -12,7 +12,6 @@ let Context = React.createContext({
     createList: () => { },
     deleteList: () => { },
     updateList: () => { },
-    getEstimate: () => { },
 
 });
 

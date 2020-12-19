@@ -39,7 +39,7 @@ function Modal(props) {
                     <p>
                         Created on:
                         <span>
-                            {new Date (list.create_date).toLocalDateString()}
+                            {new Date (list.start_date).toLocalDateString()}
                         </span>
                     </p>
 

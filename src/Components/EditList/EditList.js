@@ -1,87 +1,70 @@
 import React from "react";
 import Context from "../../Context/Context";
-import listData from "../../listData";
+
 
 
 class EditList extends React.Component {
-    static ContextType = Context;
+    static contextType = Context;
 
     state = {
-        lists: listData.lists,
-        categories: listData.categories
+        id: "",
+        name: "",
+        note: "",
+        price: "",
+        weight: "",
+        category: "",
+        checked: "",
+        category_id: "",
+        start_date: "",
 
     };
 
     handleSubmit = (e) => {
         e.preventDefault();
         let {
-            lists: [
-                {
-                    id,
-                    name,
-                    note,
-                    price,
-                    weight,
-                    category,
-
-                }
-            ],
-            categories: [
-                {
-                    category_Id,
-                }
-            ]
-                
-                
+            id,
+            name,
+            note,
+            price,
+            weight,
+            category,
+            checked,
+            category_id,
+            start_date
+             
 
             
             
 
         } = this.state;
         let newList = {
-            lists: [
-                {
-                    id,
-                    name,
-                    note,
-                    price,
-                    weight,
-                    category,
-
-                }
-            ],
-            categories: [
-                {
-                    category_Id,
-
-                }
-            ]
+            id,
+            name,
+            note,
+            price,
+            weight,
+            category,
+            checked,
+            category_id,
+            start_date
+             
             
         }
         this.resetFields();
         this.context.updateList(newList);
-        this.props.history.push(`/gorcery-list/${this.props.match.params.id}`)
+        this.props.history.push(`/grocery-lists/${this.props.match.params.id}`)
          this.setState({newList})
     }
 
     resetFields = () => {
         this.setState ({
-            lists: [
-                {
-                    id:"",
-                    name: "",
-                    note: "",
-                    price: "",
-                    weight: "",
-                    category: "",
-                }
-            ],
-            categories: [
-                {
-                    category_Id: ""
-                }
-            ]
-                
+            id: "",
+            name: "",
+            note: "",
+            price: "",
+            weight: "",
+            category: "",
+             
             
         })
     }
@@ -110,7 +93,7 @@ class EditList extends React.Component {
     }
 
     handleClickCancel = () => {
-        this.props.history.push(`/grocery-list/${this.props.match.params.id}`);
+        this.props.history.push(`/grocery-lists/${this.props.match.params.id}`);
     }
 
     render() {

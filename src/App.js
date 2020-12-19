@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css"
-import {Route } from "react-router-dom"
+import { Route } from "react-router-dom"
 import Header from "./Components/Header/Header"
 import Context from "./Context/Context"
 import ErrorPage from "./Components/Errorpage/ErrorPage"
@@ -35,7 +35,7 @@ class App extends React.Component {
           if (list.id === id) {
             list.checked = !list.checked;
             let checked = list.checked;
-            let listChecked = { id, checked };
+            //let listChecked = { id, checked };
           }
           return list;
          })
@@ -91,7 +91,7 @@ class App extends React.Component {
          lists: this.state.lists,
          categories: this.state.categories,
          user: this.state.user,
-         setLoggedInUserLists: this.state.setLoggedInUserLists,
+         setLoggedInUserLists: this.setLoggedInUserLists,
          setUser: this.state.setUser,
          setCategories: this.setCategories,
          handleLogout: this.handleLogout,
@@ -125,31 +125,31 @@ class App extends React.Component {
                  <Route
                    exact
                    path={[
-                     "/gorcery-list",
-                     "/gorcery-list/:id",
-                     "/complated-list",
-                     "/complated-lists/:id"
+                     "/grocery-lists",
+                     "/grocery-lists/:id",
+                     "/completed-lists",
+                     "/completed-lists/:id"
 
                    ]}
                    render={(props) => <GroceryList {...props} checked={false} />}
                  
                  />
-                 <Route
+                 {/* <Route
                    exact
                    path={[
-                     "/gorcery-list",
-                     "/gorcery-list/:id",
-                     "/complated-list",
-                     "/complated-lists/:id"
+                     "/grocery-lists",
+                     "/grocery-lists/:id",
+                     "/completed-lists",
+                     "/completed-lists/:id"
 
                    ]}
                    render={(props) => <GroceryList {...props} checked={true} />}
                  
-                 />
+                 /> */}
                  <div className="view-list">
                    <Route
                      exact
-                     path={["/grocery-list/:id", "/completed-list/:id"]}
+                     path={["/grocery-lists/:id", "/completed-lists/:id"]}
                      render={(props) => (
                        <List {...props} selected={this.state.selected} />
                      )}
@@ -162,7 +162,7 @@ class App extends React.Component {
                </div>
                <Route 
                  exact 
-                 path="/edit-list/:id"
+                 path="/edit-lists/:id"
                  render={(props) => (
                    <EditList />
                  )}

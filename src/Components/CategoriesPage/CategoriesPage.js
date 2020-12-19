@@ -50,7 +50,7 @@ class CategoriesPage extends React.Component {
                             </button>
                         </div>
                         <button className="grocery-list-category btn">
-                         <Link to="/grocery-list">View Your grocery List</Link>
+                         <Link to="/grocery-lists">View Your grocery List</Link>
                         </button>
 
                     </div>
