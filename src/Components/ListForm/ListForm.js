@@ -28,13 +28,13 @@ class ListForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const {name, note, category, price, weight} = this.state
-    const list = {name, note, category, price, weight}
-    console.log(list)
+    const newLists = {name, note, category, price, weight}
+    console.log(newLists)
     let checked = false;
-    this.context.createList(list);
+    this.context.createList(newLists);
     this.props.history.push("/grocery-lists");
       this.setState ({
-         lists : list
+         lists : newLists
      })
   };
    

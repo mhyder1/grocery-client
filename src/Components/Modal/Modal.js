@@ -50,14 +50,14 @@ function Modal(props) {
                         className="checkmark"
                         type="checkbox"
                         checked={list.checked ? true : false}
-                        onClick={() => context.toggleComplete(list.id)}
+                        onClick={() => context.toggleComplete(list.listChecked)}
                          /> {" "}
                          Completed?
                     </p>
 
                 </div>
                 <div className="edit-delete-list">
-                    <Link to = {`/edit-list/${list.id}`}>
+                    <Link to = {`/edit-lists/${list.id}`}>
                         <button className="edit-button">Edit</button>
                     </Link>
                     <button

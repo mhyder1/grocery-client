@@ -92,7 +92,7 @@ class EditList extends React.Component {
         })
     }
 
-    handleClickCancel = () => {
+    handleClickCancel = (e) => {
         this.props.history.push(`/grocery-lists/${this.props.match.params.id}`);
     }
 
@@ -100,7 +100,7 @@ class EditList extends React.Component {
         let {name, note, price, weight} = this.state;
         return(
             <div className="edit-lists">
-                <form onSubmit ={(e) => this.handleSubmit(e)} clasName="edit-form">
+                <form onSubmit ={(e) => this.handleSubmit(e.target.value)} clasName="edit-form">
                     <h2>Edit List</h2>
                     <div className="edit-section">
                         <label className="edit-list-label">Name: 
@@ -156,7 +156,7 @@ class EditList extends React.Component {
 
                     </div>
                     <button
-                    onClick={this.handleClickCancel}
+                    onClick={this.handleClickCancel()}
                        className="edit-list-button"
                        type="button"
 

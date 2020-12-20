@@ -60,13 +60,24 @@ class App extends React.Component {
   setUser = () => {
     
   }
+  /* unable to create new list */
 
-  createList = (list) => {
+  createList = (event) => {
+    let lists = event.target.lists.value;
+      // name: event.target.value,
+      // note: event.target.value,
+      // price: event.target.value,
+      // weight: event.target.value,
+      // category: event.target.value,
+    
+    let newLists = event.target.lists;
+    newLists.push(lists)
     this.setState({
-      lists: [...this.state.lists, list],
+      lists: [...this.state.lists, newLists],
     });
     
   }
+  /* unable to delete list */
 
   deleteList = (listid) => {
     let newLists =this.state.lists.filter((lid) => lid.id !== listid);
@@ -75,6 +86,8 @@ class App extends React.Component {
     })
     
   };
+
+  /* unable to update list */
 
   updateList = (editList) => {
     this.setState({
@@ -150,7 +163,7 @@ class App extends React.Component {
                      exact
                      path={["/grocery-lists/:id", "/completed-lists/:id"]}
                      render={(props) => (
-                       <List {...props} selected={this.state} />
+                       <List {...props} selected={this.selected} />
                      )}
                    >
 
@@ -163,7 +176,7 @@ class App extends React.Component {
                  exact 
                  path="/edit-lists/:id"
                  render={(props) => (
-                   <EditList />
+                   <EditList   />
                  )}
                />
                <Route exact path="/" component={Features} />
