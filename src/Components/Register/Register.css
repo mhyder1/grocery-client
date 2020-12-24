@@ -1,69 +1,69 @@
 /* Register user page */
 
 .register-user {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 h2 {
-    color: white;
+    color: #606060;
 }
 
 .register-form {
-  border-radius: 20px;
-  background: #606060;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border: #606060 2px solid;
-  width: 40%;
-  padding: 50px;
-  margin-top: 5%;
+    border-radius: 20px;
+    background: #606060;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: #606060 2px solid;
+    width: 40%;
+    padding: 50px;
+    margin-top: 5%;
 }
 
 .register-form input {
-  border-radius: 20px;
-  padding: 5px;
-  width: 90%;
+    border-radius: 20px;
+    padding: 5px;
+    width: 90%;
 }
 
 .register-name,
 .register-username,
 .register-password,
 .confirm-password {
-  font-size: 20px;
-  padding: 5px;
-  color: white;
+    font-size: 20px;
+    padding: 5px;
+    color: white;
 }
 
 .register-error {
-  border: 2px white solid;
-  border-radius: 20px;
-  padding: 5px;
-  background: white;
-  color: #3d405b;
+    border: 2px white solid;
+    border-radius: 20px;
+    padding: 5px;
+    background: white;
+    color: #3d405b;
 }
 
 .register-submit {
-  border: white 2px solid;
-  padding: 20px;
-  margin-top: 20px;
-  border-radius: 20px;
-  font-size: 20px;
-  background-color: #606060;
-  color: white;
-  cursor: pointer;
+    border: white 2px solid;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    font-size: 20px;
+    background-color: #606060;
+    color: white;
+    cursor: pointer;
 }
 
 @media screen and (min-width: 320px) and (max-width: 425px) {
-  .register-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: grey 2px solid;
-    width: 80%;
-    padding: 50px;
-    border-radius: 20px;
-    margin-top: 10%;
-  }
+    .register-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: grey 2px solid;
+        width: 80%;
+        padding: 50px;
+        border-radius: 20px;
+        margin-top: 10%;
+    }
 }

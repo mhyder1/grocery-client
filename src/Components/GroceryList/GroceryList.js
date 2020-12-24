@@ -10,9 +10,9 @@ import {Link} from "react-router-dom";
 class GroceryList extends React.Component {
     static contextType = Context;
 
-      state = {
-         show: false,
-      };
+    state = {
+        show: false,
+    };
 
     showModal = () => {
         this.setState({
@@ -28,11 +28,10 @@ class GroceryList extends React.Component {
 
 
     render() {
-        console.log(this.context)
-        let {list} = this.context.lists.filter((list) => list.checked === this.props.checked);
+        // const list = this.context.lists.filter((list) => list.checked === this.props.checked);
         return (
             <div className={`GroceryList ${this.props.checked}`}>
-                <h2>{this.props.checked ? "completed" : "pending"}Lists</h2>
+                <h2>{this.props.checked ? "Completed" : "Pending"} Lists</h2>
                 <div className="create-list-mobile">
                     <Link to="/grocery-list-categories">
                         <button className="create-list-button">
@@ -43,10 +42,10 @@ class GroceryList extends React.Component {
                 </div>
                 <div className={this.props.checked ? "completed-lists" : "pending-lists"}>
                     <ul>
-                        {this.context.lists.map((list, i) => (
-                            <li key={i} className={list.category}>
+                        {this.context.lists.filter((list) => list.checked === this.props.checked).map((list, id) => (
+                            <li key={list.id} className={list.category}>
                                 <div className="view-list-desktop">
-                                    <Link to = {`/grocery-lists/${list.id}`}>{list.name}</Link>
+                                    <Link to={`/grocery-lists/${list.id}`}>{list.name}</Link>
                                 </div>
                                 <div className="view-list-modal">
                                     <Modal
@@ -66,24 +65,24 @@ class GroceryList extends React.Component {
                                 </div>
                                 {list.checked === true ? (
                                     <span className="checkmark-list">
-                                         <FaCheckCircle className ="completed-check-logo" />
+                                        <FaCheckCircle className="completed-check-logo" />
 
                                     </span>
-                                ):(
+                                ) : (
                                 
-                                 ""
-                                 )}
+                                        ""
+                                    )}
 
                             </li>
                         ))}
                     </ul>
                     <div className="create-list-desktop">
-                        <button className="create-list-button">
+                        {/* <button className="create-list-button">
                             <Link to="/grocery-list-categories">
                                 Create Grocery List
                              </Link>
 
-                        </button>
+                        </button> */}
 
                     </div>
 
@@ -93,77 +92,8 @@ class GroceryList extends React.Component {
         )
     }
 
-     
-    // render() {
-    //     console.log(this.context)
-
-    //     let {list} = this.context.lists.filter((list) => list.checked === this.props.checked);
-
-    //     return(
-    //         <div className= {`GroceryList ${this.props.checked}`}>
-    //             <h2>{this.props.checked ?  "completed" : "pending"}Lists</h2>
-    //             <div className="create-list-mobile">
-    //                 <Link to="/grocery-list-categories">
-    //                     <button className="create-list-button">
-    //                         Create Grocery List
-
-    //                     </button>
-    //                 </Link>
-
-    //             </div>
-    //             <div className={this.props.checked ? "completed-lists" : "pending-lists"}>
-    //                 <ul>
-    //                     {list.map((list, i) => (
-    //                         <li key={i} className= {list.category}>
-    //                             <div className="view-list-desktop">
-    //                                <Link to = {`/grocery-lists/${list.id}`}>{list.name}</Link>
-
-    //                             </div>
-    //                             <div className="view-list-modal">
-    //                                 <Modal
-    //                                   {...this.props}
-    //                                   show={this.state.show}
-    //                                   handleClose={this.hideModal}
-    //                                  />
-    //                                  <button
-    //                                    onClick={this.showModal}
-    //                                    className="view-list-modal-button"
-    //                                  >
-    //                                     <Link to={`/grocery-lists/${list.id}`}> {list.name}
-    //                                      </Link>
-
-    //                                  </button>
-
-
-    //                             </div>
-    //                             {list.checked === true ? (
-    //                                 <span className="checkmark-list">
-    //                                      <FaCheckCircle className ="completed-check-logo" />
-
-    //                                 </span>
-    //                             ):(
-    //                                 ""
-    //                             )}
-
-    //                         </li>
-    //                     ))}
-    //                 </ul>
-    //                 <div className="create-list-desktop">
-    //                     <button className="create-list-button">
-    //                         <Link to="/grocery-list-categories">
-    //                             Create Grocery List
-    //                         </Link>
-
-    //                     </button>
-
-    //                 </div>
-
-    //             </div>
-
-    //         </div>
-    //     )
-    // }
-}
+}   
+    
 
 
 export default GroceryList;

@@ -17,15 +17,15 @@ class List extends React.Component {
 
     render() {
 
-        let list = this.context.lists.find(
-            (list) => list.id === Number(this.props.match.params.id)
-        ) || {};
+         const list = this.context.lists.filter(
+           (list) => list.id === (this.props.match.params.id)
+         ) || {};
 
         return(
             <React.Fragment>
                 <div className="view-list-task">
                     <h2>{list.name}</h2>
-                    <h3 className="view-list-category">category: {list.category}</h3>
+                    <h3 className="view-list-category">Category: {list.category}</h3>
                     <div className="list-textbox">
                      <p>{list.note}</p>
                     </div>
@@ -48,7 +48,7 @@ class List extends React.Component {
                                 <input className="checkmark"
                                 type="checkbox"
                                 checked={list.checked ? true : false}
-                                onClick={() => this.context.toggleComplate(list.id)}
+                                onClick={() => this.context.toggleComplete(list.id)}
                                  />{" "}
                                  Completed?
                             </p>
@@ -65,7 +65,7 @@ class List extends React.Component {
                               className="delete-button"
                               onClick={(e) => 
                                 this.deleteList(
-                                    Number(this.props.match.params.id), this.context.deletelists
+                                    Number(this.props.match.params.id), this.context.deleteList
                                 )
                             }
                             >

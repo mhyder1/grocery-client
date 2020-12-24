@@ -28,14 +28,14 @@ class ListForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const {name, note, category, price, weight} = this.state
-    const newLists = {name, note, category, price, weight}
-    console.log(newLists)
-    let checked = false;
-    this.context.createList(newLists);
+    const list = { name, note, category, price, weight, checked: false, id: `${this.context.lists.lenght + 100}`}
+    console.log(list)
+    
+    this.context.createList(list);
     this.props.history.push("/grocery-lists");
-      this.setState ({
-         lists : newLists
-     })
+    this.setState({
+      lists: list
+    });
   };
    
    updateList = (name) => {
@@ -57,16 +57,15 @@ class ListForm extends Component {
   // }
   changeCategory = (e) => {
     let category_Id = Number(e.target.value);
-    let categories = this.context.categories.find((c) => c.id === category_Id);
+    let category = this.context.categories.find((c) => c.id === category_Id);
     this.setState({
-      selCategory: categories,
+      selCategory: e.target.value,
       category_Id: category_Id
     });
   };
   render() {
-    console.log(this.context);
-    let  categories  = this.context;
-    console.log(categories);
+  
+
      //let nameError = this.validateList();
     return (
       <div className="add-list">
@@ -78,7 +77,7 @@ class ListForm extends Component {
               type="text"
               name="name" className="add-name-input"
               value={this.state.name}
-              onChange={this.updateList}
+              onChange={this.handleChange}
             />
             {/* {this.state.list.touched && (
               <ValidationError message={nameError} />

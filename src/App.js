@@ -12,7 +12,7 @@ import EditList from "./Components/EditList/EditList";
 import Features from "./Components/Features/Features";
 import Footer from "./Components/Footer/Footer";
 import Register from "./Components/Register/Register";
-import List from "./Components/Lists/List"
+//import List from "./Components/Lists/List"
 import GroceryList from "./Components/GroceryList/GroceryList"
 import listData from "./listData"
 
@@ -26,24 +26,27 @@ class App extends React.Component {
       userName: "",
       user_id: "",
     },
-   
-
-    
+     
     toggleComplete: (id) => {
       this.setState({
         lists: this.state.lists.map((list) => {
-          if (list.id === id) {
+          if ((list.id) === (id)) {
             list.checked = !list.checked;
             let checked = list.checked;
             let listChecked = { id, checked };
-          }
+          };
           return list;
-         })
-        
         })
-      }
+      
+      })
+    }
 
-  };
+  }
+
+  
+
+  
+  
 
   handleLogout = () => {
 
@@ -62,25 +65,17 @@ class App extends React.Component {
   }
   /* unable to create new list */
 
-  createList = (event) => {
-    let lists = event.target.lists.value;
-      // name: event.target.value,
-      // note: event.target.value,
-      // price: event.target.value,
-      // weight: event.target.value,
-      // category: event.target.value,
-    
-    let newLists = event.target.lists;
-    newLists.push(lists)
+  createList = (list) => {
     this.setState({
-      lists: [...this.state.lists, newLists],
+      lists: [...this.state.lists, list]
     });
+  
     
   }
   /* unable to delete list */
 
   deleteList = (listid) => {
-    let newLists =this.state.lists.filter((lid) => lid.id !== listid);
+    let newLists = this.state.lists.filter((list) => list.id !== listid);
       this.setState({
         lists: newLists
     })
@@ -91,8 +86,8 @@ class App extends React.Component {
 
   updateList = (editList) => {
     this.setState({
-      lists: this.state.lists.map((l) =>
-        l.id !== editList.id ? l : editList
+      lists: this.state.lists.map((list) =>
+        list.id !== editList.id ? list : editList
       ),
     });
     
@@ -100,17 +95,17 @@ class App extends React.Component {
   render() {
      
     let contextValue = {
-         lists: this.state.lists,
-         categories: this.state.categories,
-         user: this.state.user,
-         setLoggedInUserLists: this.setLoggedInUserLists,
-         setUser: this.state.setUser,
-         setCategories: this.setCategories,
-         handleLogout: this.handleLogout,
-         toggleComplete: this.state.toggleComplete,
-         createList: this.createList,
-         deleteList: this.deleteList,
-          updateList: this.updateList,
+      lists: this.state.lists,
+      categories: this.state.categories,
+      user: this.state.user,
+      setLoggedInUserLists: this.setLoggedInUserLists,
+      setUser: this.state.setUser,
+      setCategories: this.setCategories,
+      handleLogout: this.handleLogout,
+      toggleComplete: this.state.toggleComplete,
+      createList: this.createList,
+      deleteList: this.deleteList,
+      updateList: this.updateList,
     };
     return (
       
@@ -159,15 +154,15 @@ class App extends React.Component {
                  
                  /> 
                  <div className="view-list">
-                   <Route
+                   {/* <Route
                      exact
                      path={["/grocery-lists/:id", "/completed-lists/:id"]}
                      render={(props) => (
                        <List {...props} selected={this.selected} />
                      )}
-                   >
+                   /> */}
 
-                   </Route>
+                  
 
                  </div>
 
@@ -176,7 +171,7 @@ class App extends React.Component {
                  exact 
                  path="/edit-lists/:id"
                  render={(props) => (
-                   <EditList   />
+                   <EditList {...props} />
                  )}
                />
                <Route exact path="/" component={Features} />
