@@ -14,11 +14,14 @@ import Footer from "./Components/Footer/Footer";
 import Register from "./Components/Register/Register";
 //import List from "./Components/Lists/List"
 import GroceryList from "./Components/GroceryList/GroceryList"
-import listData from "./listData"
+import listData from "./listData";
+import Config from "./Config/Config";
+import TokenService from "./services/TokenService";
+
 
 
 class App extends React.Component {
- 
+
   state = {
     lists: listData.lists,
     categories: listData.categories,
@@ -26,60 +29,87 @@ class App extends React.Component {
       userName: "",
       user_id: "",
     },
-     
+
     toggleComplete: (id) => {
       this.setState({
         lists: this.state.lists.map((list) => {
           if ((list.id) === (id)) {
             list.checked = !list.checked;
             let checked = list.checked;
-            let listChecked = { id, checked };
+            let listCheck = { id, checked };
+            fetch(`${Config.API_ENDPOINT}/api/lists/${id}`, {
+              method: "PUT",
+              body: JSON.stringify(listCheck),
+              headers: {
+                "contendt-type": "application/json",
+                Authorization: `Bearer ${TokenService.getAuthToken()}`,
+              },
+            }).then((res) => {
+              if (!res.ok) {
+                return res.json().then((error) => Promise.reject(error));
+              }
+              return res;
+            })
           };
           return list;
-        })
-      
-      })
-    }
+        }),
 
-  }
+      });
+    },
 
-  
+  };
 
-  
-  
+
+
+
+
 
   handleLogout = () => {
+    TokenService.clearAuthToken();
+    this.setState({
+      lists: [],
+      categories: [],
+    });
 
-  }
+  };
 
   setLoggedInUserLists = (lists) => {
+    this.setState({
+      lists: lists,
+    });
 
-  }
+  };
 
   setCategories = (categories) => {
-    this.setState({categories})
+    this.setState({ categories })
   }
 
-  setUser = () => {
-    
-  }
-  /* unable to create new list */
+  setUser = (user) => {
+    this.setState({
+      user: {
+        username: user.username,
+        user_id: user.id,
+      },
+    });
+
+
+  };
+
 
   createList = (list) => {
     this.setState({
       lists: [...this.state.lists, list]
     });
-  
-    
+
+
   }
-  /* unable to delete list */
 
   deleteList = (listid) => {
     let newLists = this.state.lists.filter((list) => list.id !== listid);
-      this.setState({
-        lists: newLists
+    this.setState({
+      lists: newLists
     })
-    
+
   };
 
   /* unable to update list */
@@ -90,16 +120,16 @@ class App extends React.Component {
         list.id !== editList.id ? list : editList
       ),
     });
-    
+
   };
   render() {
-     
+
     let contextValue = {
       lists: this.state.lists,
       categories: this.state.categories,
       user: this.state.user,
       setLoggedInUserLists: this.setLoggedInUserLists,
-      setUser: this.state.setUser,
+      setUser: this.setUser,
       setCategories: this.setCategories,
       handleLogout: this.handleLogout,
       toggleComplete: this.state.toggleComplete,
@@ -108,53 +138,53 @@ class App extends React.Component {
       updateList: this.updateList,
     };
     return (
-      
-     <Context.Provider value={contextValue}> 
+
+      <Context.Provider value={contextValue}>
         <ErrorPage>
           <div className="App">
             <Route path="/" component={Navbar} />
-            
+
             <Route exact path="/" component={Header} />
-            <Route exact path="/login" component={ Login}/>
-            
+            <Route exact path="/login" component={Login} />
+
             <Route exact
-            path={["/add-list", "/add-list/:category"]}
-            component = {ListForm}
+              path={["/add-list", "/add-list/:category"]}
+              component={ListForm}
             />
             <Route exact path="/register" component={Register} />
             <Route
-            exact
-            path="/grocery-list-categories"
-            component ={CategoriesPage}
-             />
-             <main>
-               <div className="main-lists">
-                 <Route
-                   exact
-                   path={[
-                     "/grocery-lists",
-                     "/grocery-lists/:id",
-                     "/completed-lists",
-                     "/completed-lists/:id"
+              exact
+              path="/grocery-list-categories"
+              component={CategoriesPage}
+            />
+            <main>
+              <div className="main-lists">
+                <Route
+                  exact
+                  path={[
+                    "/grocery-lists",
+                    "/grocery-lists/:id",
+                    "/completed-lists",
+                    "/completed-lists/:id"
 
-                   ]}
-                   render={(props) => <GroceryList {...props} checked={false} />}
-                 
-                 />
-                  <Route
-                   exact
-                   path={[
-                     "/grocery-lists",
-                     "/grocery-lists/:id",
-                     "/completed-lists",
-                     "/completed-lists/:id"
+                  ]}
+                  render={(props) => <GroceryList {...props} checked={false} />}
 
-                   ]}
-                   render={(props) => <GroceryList {...props} checked={true} />}
-                 
-                 /> 
-                 <div className="view-list">
-                   {/* <Route
+                />
+                <Route
+                  exact
+                  path={[
+                    "/grocery-lists",
+                    "/grocery-lists/:id",
+                    "/completed-lists",
+                    "/completed-lists/:id"
+
+                  ]}
+                  render={(props) => <GroceryList {...props} checked={true} />}
+
+                />
+                <div className="view-list">
+                  {/* <Route
                      exact
                      path={["/grocery-lists/:id", "/completed-lists/:id"]}
                      render={(props) => (
@@ -162,29 +192,29 @@ class App extends React.Component {
                      )}
                    /> */}
 
-                  
 
-                 </div>
 
-               </div>
-               <Route 
-                 exact 
-                 path="/edit-lists/:id"
-                 render={(props) => (
-                   <EditList {...props} />
-                 )}
-               />
-               <Route exact path="/" component={Features} />
+                </div>
 
-             </main>
+              </div>
+              <Route
+                exact
+                path="/edit-lists/:id"
+                render={(props) => (
+                  <EditList {...props} updateList={this.updateList} />
+                )}
+              />
+              <Route exact path="/" component={Features} />
 
-             <Route path="/" component={Footer}/>
-            
+            </main>
+
+            <Route path="/" component={Footer} />
+
 
           </div>
         </ErrorPage>
       </Context.Provider>
-      
+
     )
   }
 }
