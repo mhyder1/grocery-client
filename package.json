@@ -12,6 +12,8 @@
     "@testing-library/user-event": "^12.5.0",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "date-fns": "^2.16.1",
+    "jwt-decode": "^3.1.2",
     "navbar-react": "^1.0.4",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
@@ -22,6 +24,7 @@
     "react-scripts": "4.0.1",
     "react-svg-font-icons": "^0.2.0",
     "redux": "^4.0.5",
+    "uuid": "^8.3.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
