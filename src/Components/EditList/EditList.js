@@ -13,7 +13,9 @@ class EditList extends React.Component {
   };
 
   componentDidMount() {
-     let {id, name, note, price, weight, checked} = this.context.lists.find(list => list.id === this.props.match.params.id)
+     let {id, name, note, price, weight, checked} = this.context.lists.find(list => {
+       return list.id === parseInt(this.props.match.params.id)
+      })
      this.setState({id, name, note, price, weight, checked})
   }
 

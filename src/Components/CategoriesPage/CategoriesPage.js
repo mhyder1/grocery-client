@@ -7,7 +7,6 @@ import "./CategoriesPage.css";
 class CategoriesPage extends React.Component {
     static contextType = Context;
 
-
     render() {
         return (
             <div className="categories-body">

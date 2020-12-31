@@ -1,20 +1,31 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Context from "../../Context/Context";
+import config from '../../config'
+import TokenService from '../../services/token-service'
 
 function Modal(props) {
   let context = useContext(Context);
 
-  //  deleteList =(listid)  => {
-
-  //  }
+  const handleDelete = ()  => {
+    fetch(`${config.API_ENDPOINT}/lists/${props.match.params.id}`, {
+      method: 'DELETE',
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+    .then(() => {
+      context.deleteList(parseInt(props.match.params.id))
+    })
+   }
 
   let showHideClassName = props.show
     ? "modal display-block"
     : "modal display-none";
 
   const list =
-    context.lists.find((list) => list.id === props.match.params.id) || {};
+    context.lists.find((list) => list.id === parseInt(props.match.params.id)) || {};
 
   return (
     <div className={showHideClassName}>
@@ -45,7 +56,7 @@ function Modal(props) {
               className="checkmark"
               type="checkbox"
               checked={list.checked ? true : false}
-              onChange={() => context.toggleComplete(props.match.params.id)}
+              onChange={() => context.toggleComplete(parseInt(props.match.params.id))}
             />{" "}
             Completed?
           </p>
@@ -56,7 +67,7 @@ function Modal(props) {
           </Link>
           <button
             className="delete-button"
-            onClick={(e) => context.deleteList(props.match.params.id)}
+            onClick={handleDelete}
           >
             Delete
           </button>

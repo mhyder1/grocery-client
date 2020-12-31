@@ -3,6 +3,8 @@ import Context from "../../Context/Context";
 // import ValidationError from "../Validation/ValidationError";
 import BackButton from "../BackButton/BackButton";
 import { v4 as uuidv4 } from 'uuid';
+import TokenService from '../../services/token-service'
+import config from '../../config'
 import "./ListForm.css";
 
 class ListForm extends Component {
@@ -39,15 +41,31 @@ class ListForm extends Component {
       price,
       weight,
       checked: false,
-      id: uuidv4(),
+      start_date: new Date(),
+      user_id: this.context.user.user_id
+      // id: uuidv4(),
     };
     console.log(list);
 
-    this.context.createList(list);
-    this.props.history.push("/grocery-lists");
-    this.setState({
-      lists: list,
-    });
+    fetch(`${config.API_ENDPOINT}/lists`, {
+      method: "POST",
+      body: JSON.stringify(list),
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${TokenService.getAuthToken()}`,
+      },
+    }).then((res) => {
+      if (!res.ok) {
+        return res.json().then((error) => Promise.reject(error));
+      }
+      return res.json();
+    }).then(list => {
+      this.context.createList(list);
+      this.props.history.push("/grocery-lists");
+      // this.setState({
+      //   lists: list,
+      // });
+    })
   };
 
   updateList = (name) => {
@@ -58,15 +76,7 @@ class ListForm extends Component {
       },
     });
   };
-  // why my validationlist is not working //
-  // validateList() {
-  //   let list = this.state.lists.value.trim();
-  //   if (list.name === 0) {
-  //     return "list name required";
-  //   } else if (list.name.length < 3) {
-  //     return "list name must be at least 3 charecter long";
-  //   }
-  // }
+
   changeCategory = (e) => {
     let category_Id = Number(e.target.value);
     let category = this.context.categories.find((c) => c.id === category_Id);
@@ -118,8 +128,8 @@ class ListForm extends Component {
               onChange={this.handleChange}
             />
             <select
-              onChange={this.changeCategory}
-              name="category_id"
+              onChange={this.handleChange}
+              name="category"
               id="category-dropdown"
               value={this.state.category}
             >

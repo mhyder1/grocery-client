@@ -20,7 +20,7 @@ class Navbar extends React.Component {
     return (
       <div className="nav-links">
         <Link to='/grocery-lists/'>
-          Create list
+          View lists
         </Link>
         <Link onClick={this.handleLogoutClick} to="/">
           Logout

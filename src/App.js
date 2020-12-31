@@ -20,47 +20,68 @@ import TokenService from "./services/token-service";
 
 class App extends React.Component {
   state = {
-    lists: listData.lists,
     categories: listData.categories,
     user: {
       userName: "",
       user_id: "",
     },
-
-    toggleComplete: (id) => {
-      this.setState({
-        lists: this.state.lists.map((list) => {
-          if (list.id === id) {
-            list.checked = !list.checked;
-            let checked = list.checked;
-            let listCheck = { id, checked };
-            fetch(`${config.API_ENDPOINT}/api/lists/${id}`, {
-              method: "PUT",
-              body: JSON.stringify(listCheck),
-              headers: {
-                "contendt-type": "application/json",
-                Authorization: `Bearer ${TokenService.getAuthToken()}`,
-              },
-            }).then((res) => {
-              if (!res.ok) {
-                return res.json().then((error) => Promise.reject(error));
-              }
-              return res;
-            });
-          }
-          return list;
-        }),
-      });
-    },
   };
 
-  handleLogout = () => {
-    TokenService.clearAuthToken();
+  componentDidMount() {
+    console.log('MOUNTING...')
+    if(TokenService.hasAuthToken()) {
+      // this.init()
+    }
+  }
+
+  init = () => {
+    const { user_id } = this.context.user
+    fetch(`${config.API_ENDPOINT}/lists/all/${user_id}`)
+    .then(res => {
+      if (!res.ok) {
+        return res.json().then((error) => Promise.reject(error));
+      }
+      return res.json();
+    }).then(lists => {
+        console.log(lists)
+        this.context.initializeList(lists)
+    //   console.log(data)
+    })
+}
+
+  toggleComplete = (id) => {
     this.setState({
-      lists: [],
-      categories: [],
+      lists: this.state.lists.map((list) => {
+        if (list.id === id) {
+          list.checked = !list.checked;
+          let checked = list.checked;
+          let listCheck = { id, checked };
+          fetch(`${config.API_ENDPOINT}/lists/${id}`, {
+            method: "PUT",
+            body: JSON.stringify(listCheck),
+            headers: {
+              "contendt-type": "application/json",
+              Authorization: `Bearer ${TokenService.getAuthToken()}`,
+            },
+          }).then((res) => {
+            if (!res.ok) {
+              return res.json().then((error) => Promise.reject(error));
+            }
+            return res;
+          });
+        }
+        return list;
+      }),
     });
   };
+
+  // handleLogout = () => {
+  //   TokenService.clearAuthToken();
+  //   this.setState({
+  //     lists: [],
+  //     categories: [],
+  //   });
+  // };
 
   setLoggedInUserLists = (lists) => {
     this.setState({
@@ -75,9 +96,15 @@ class App extends React.Component {
   setUser = (user) => {
     this.setState({
       user: {
-        username: user.username,
-        user_id: user.id,
+        username: user.sub,
+        user_id: user.user_id,
       },
+    });
+  };
+
+  initializeList = (lists) => {
+    this.setState({
+      lists: lists,
     });
   };
 
@@ -97,7 +124,7 @@ class App extends React.Component {
   /* unable to update list */
 
   updateList = (editList) => {
-    console.log(editList)
+    console.log(editList);
     this.setState({
       lists: this.state.lists.map((list) =>
         list.id !== editList.id ? list : editList
@@ -113,13 +140,13 @@ class App extends React.Component {
       setUser: this.setUser,
       setCategories: this.setCategories,
       handleLogout: this.handleLogout,
-      toggleComplete: this.state.toggleComplete,
+      toggleComplete: this.toggleComplete,
       createList: this.createList,
       deleteList: this.deleteList,
       updateList: this.updateList,
+      initializeList: this.initializeList
     };
     return (
-      
       <Context.Provider value={contextValue}>
         <ErrorPage>
           <div className="App">
@@ -171,11 +198,7 @@ class App extends React.Component {
                    /> */}
                 </div>
               </div>
-              <Route
-                exact
-                path="/edit-lists/:id"
-                component={EditList}
-              />
+              <Route exact path="/edit-lists/:id" component={EditList} />
               <Route exact path="/" component={Features} />
             </main>
 

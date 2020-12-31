@@ -3,6 +3,7 @@ import Context from "../../Context/Context";
 import Modal from "../Modal/Modal";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import config from '../../config'
 
 class GroceryList extends React.Component {
   static contextType = Context;
@@ -10,6 +11,19 @@ class GroceryList extends React.Component {
   state = {
     show: false,
   };
+
+  // componentDidMount() {
+  //   const { user_id } = this.context.user
+  //   fetch(`${config.API_ENDPOINT}/lists/all/:${user_id}`)
+  //   .then(res => {
+  //     if (!res.ok) {
+  //       return res.json().then((error) => Promise.reject(error));
+  //     }
+  //     return res.json();
+  //   }).then(data => {
+  //     console.log(data)
+  //   })
+  // }
 
   showModal = () => {
     this.setState({
@@ -24,6 +38,7 @@ class GroceryList extends React.Component {
 
   render() {
     // const list = this.context.lists.filter((list) => list.checked === this.props.checked);
+    console.log(this.context)
     return (
       <div className={`GroceryList ${this.props.checked}`}>
         <h2>{this.props.checked ? "Completed" : "Pending"} Lists</h2>
