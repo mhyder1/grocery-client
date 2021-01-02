@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Context from "../../Context/Context";
 // import ValidationError from "../Validation/ValidationError";
 import BackButton from "../BackButton/BackButton";
-import { v4 as uuidv4 } from 'uuid';
 import TokenService from '../../services/token-service'
 import config from '../../config'
 import "./ListForm.css";
@@ -33,6 +32,7 @@ class ListForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
+    const {user_id} = TokenService.readJwtToken()
     const { name, note, category, price, weight } = this.state;
     const list = {
       name,
@@ -42,7 +42,7 @@ class ListForm extends Component {
       weight,
       checked: false,
       start_date: new Date(),
-      user_id: this.context.user.user_id
+      user_id
       // id: uuidv4(),
     };
     console.log(list);
@@ -87,6 +87,7 @@ class ListForm extends Component {
   };
   render() {
     //let nameError = this.validateList();
+    console.log(this.context.user)
     return (
       <div className="add-list">
         <form className="add-list-form" onSubmit={this.handleSubmit}>

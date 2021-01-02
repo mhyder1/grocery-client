@@ -38,7 +38,7 @@ class GroceryList extends React.Component {
 
   render() {
     // const list = this.context.lists.filter((list) => list.checked === this.props.checked);
-    console.log(this.context)
+    // console.log(this.context)
     return (
       <div className={`GroceryList ${this.props.checked}`}>
         <h2>{this.props.checked ? "Completed" : "Pending"} Lists</h2>
@@ -51,7 +51,7 @@ class GroceryList extends React.Component {
           className={this.props.checked ? "completed-lists" : "pending-lists"}
         >
           <ul>
-            {this.context.lists
+            {this.context.lists && this.context.lists
               .filter((list) => list.checked === this.props.checked)
               .map((list, id) => (
                 <li key={list.id} className={list.category}>

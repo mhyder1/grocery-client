@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Context from "../../Context/Context";
-import { Hyph } from "../Utils/Utils";
 import TokenService from "../../services/token-service";
 import IdleService from "../../services/idle-service";
 import "./Navbar.css";

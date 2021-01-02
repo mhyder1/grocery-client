@@ -30,50 +30,30 @@ class App extends React.Component {
   componentDidMount() {
     console.log('MOUNTING...')
     if(TokenService.hasAuthToken()) {
-      // this.init()
+      this.init()
     }
   }
 
   init = () => {
-    const { user_id } = this.context.user
-    fetch(`${config.API_ENDPOINT}/lists/all/${user_id}`)
+    const {user_id} = TokenService.readJwtToken()
+    fetch(`${config.API_ENDPOINT}/lists/all/${user_id}`, {
+      method: 'GET',
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${TokenService.getAuthToken()}`,
+      }
+    })
     .then(res => {
       if (!res.ok) {
         return res.json().then((error) => Promise.reject(error));
       }
       return res.json();
     }).then(lists => {
-        console.log(lists)
-        this.context.initializeList(lists)
-    //   console.log(data)
+        this.initializeList(lists)
     })
 }
 
-  toggleComplete = (id) => {
-    this.setState({
-      lists: this.state.lists.map((list) => {
-        if (list.id === id) {
-          list.checked = !list.checked;
-          let checked = list.checked;
-          let listCheck = { id, checked };
-          fetch(`${config.API_ENDPOINT}/lists/${id}`, {
-            method: "PUT",
-            body: JSON.stringify(listCheck),
-            headers: {
-              "contendt-type": "application/json",
-              Authorization: `Bearer ${TokenService.getAuthToken()}`,
-            },
-          }).then((res) => {
-            if (!res.ok) {
-              return res.json().then((error) => Promise.reject(error));
-            }
-            return res;
-          });
-        }
-        return list;
-      }),
-    });
-  };
+  
 
   // handleLogout = () => {
   //   TokenService.clearAuthToken();
@@ -83,15 +63,15 @@ class App extends React.Component {
   //   });
   // };
 
-  setLoggedInUserLists = (lists) => {
-    this.setState({
-      lists: lists,
-    });
-  };
+  // setLoggedInUserLists = (lists) => {
+  //   this.setState({
+  //     lists: lists,
+  //   });
+  // };
 
-  setCategories = (categories) => {
-    this.setState({ categories });
-  };
+  // setCategories = (categories) => {
+  //   this.setState({ categories });
+  // };
 
   setUser = (user) => {
     this.setState({
@@ -124,21 +104,21 @@ class App extends React.Component {
   /* unable to update list */
 
   updateList = (editList) => {
-    console.log(editList);
     this.setState({
       lists: this.state.lists.map((list) =>
         list.id !== editList.id ? list : editList
       ),
     });
   };
+
   render() {
     let contextValue = {
       lists: this.state.lists,
       categories: this.state.categories,
       user: this.state.user,
-      setLoggedInUserLists: this.setLoggedInUserLists,
+      // setLoggedInUserLists: this.setLoggedInUserLists,
       setUser: this.setUser,
-      setCategories: this.setCategories,
+      // setCategories: this.setCategories,
       handleLogout: this.handleLogout,
       toggleComplete: this.toggleComplete,
       createList: this.createList,

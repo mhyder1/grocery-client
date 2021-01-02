@@ -1,5 +1,7 @@
 import React from "react";
 import Context from "../../Context/Context";
+import config from "../../config";
+import TokenService from "../../services/token-service";
 
 class EditList extends React.Component {
   static contextType = Context;
@@ -13,34 +15,44 @@ class EditList extends React.Component {
   };
 
   componentDidMount() {
-     let {id, name, note, price, weight, checked} = this.context.lists.find(list => {
-       return list.id === parseInt(this.props.match.params.id)
-      })
-     this.setState({id, name, note, price, weight, checked})
+    let { id, name, note, price, weight, checked } = this.context.lists.find(
+      (list) => {
+        return list.id === parseInt(this.props.match.params.id);
+      }
+    );
+    this.setState({ id, name, note, price, weight, checked });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    let {
-      id,
-      name,
-      note,
-      price,
-      weight,
-      checked
-    } = this.state;
+    let { id, name, note, price, weight, checked } = this.state;
     let newList = {
       id,
       name,
       note,
       price,
       weight,
-      checked
+      checked,
     };
-    this.resetFields();
-    this.context.updateList(newList);
-    this.props.history.push(`/grocery-lists/${this.props.match.params.id}`);
-    this.setState({ newList });
+
+    fetch(`${config.API_ENDPOINT}/lists/${this.props.match.params.id}`, {
+      method: "PATCH",
+      body: JSON.stringify(newList),
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${TokenService.getAuthToken()}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((error) => Promise.reject(error));
+        }
+        return res.json();
+      })
+      .then((updatedList) => {
+        this.context.updateList(updatedList[0]);
+        this.props.history.push(`/grocery-lists/${this.props.match.params.id}`);
+      });
   };
 
   resetFields = () => {
@@ -67,10 +79,7 @@ class EditList extends React.Component {
     let { name, note, price, weight } = this.state;
     return (
       <div className="edit-lists">
-        <form
-          onSubmit={this.handleSubmit}
-          className="edit-form"
-        >
+        <form onSubmit={this.handleSubmit} className="edit-form">
           <h2>Edit List</h2>
           <div className="edit-section">
             <label className="edit-list-label">Name:</label>
