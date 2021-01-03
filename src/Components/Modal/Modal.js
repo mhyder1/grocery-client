@@ -8,9 +8,9 @@ function Modal(props) {
   let context = useContext(Context);
 
   // console.log(context)
-  const [list, setList] = useState([])
+  const [list, setList] = useState([]);
   // const list = context.lists.find((list) => list.id === parseInt(props.match.params.id))
-  const [check, setCheck] = useState(false)
+  const [check, setCheck] = useState(false);
   // console.log(list)
   const handleDelete = () => {
     fetch(`${config.API_ENDPOINT}/lists/${props.match.params.id}`, {
@@ -26,17 +26,19 @@ function Modal(props) {
 
   useEffect(() => {
     // console.log(check)
-    const list = context.lists.find((list) => list.id === parseInt(props.match.params.id))
+    const list = context.lists.find(
+      (list) => list.id === parseInt(props.match.params.id)
+    );
     // console.log(list)
-    setList(list)
-    setCheck(list?.checked)
-  },[list, context.lists, props.match.params.id])
+    setList(list);
+    setCheck(list?.checked);
+  }, [list, context.lists, props.match.params.id]);
 
   const toggleComplete = () => {
-    setCheck(!check)
-    const { id } = props.match.params
+    setCheck(!check);
+    const { id } = props.match.params;
     let listCheck = { id, checked: !check };
-    console.log(listCheck)
+    console.log(listCheck);
     fetch(`${config.API_ENDPOINT}/lists/${id}`, {
       method: "PUT",
       body: JSON.stringify(listCheck),
@@ -44,25 +46,23 @@ function Modal(props) {
         "content-type": "application/json",
         Authorization: `Bearer ${TokenService.getAuthToken()}`,
       },
-    }).then((res) => {
-      if (!res.ok) {
-        return res.json().then((error) => Promise.reject(error));
-      }
-      return res.json()
-    }).then(data => {
-      context.updateList(data[0])
     })
-    .catch(error => console.log(error))
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((error) => Promise.reject(error));
+        }
+        return res.json();
+      })
+      .then((data) => {
+        context.updateList(data[0]);
+      })
+      .catch((error) => console.log(error));
   };
 
   let showHideClassName = props.show
     ? "modal display-block"
     : "modal display-none";
 
-  // const list =
-  //   context.lists.find((list) => list.id === parseInt(props.match.params.id)) ||
-  //   {};
-  
   return (
     <div className={showHideClassName}>
       <section className="modal-main">
@@ -90,11 +90,9 @@ function Modal(props) {
             <input
               className="checkmark"
               type="checkbox"
-              checked={check}
-              value={check}
-              onChange={
-                toggleComplete
-              }
+              checked={check || false}
+              value={check || false}
+              onChange={toggleComplete}
             />{" "}
             Completed?
           </p>

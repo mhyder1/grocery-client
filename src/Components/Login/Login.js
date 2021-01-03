@@ -25,12 +25,11 @@ class Login extends React.Component {
     this.setState({ error: null });
     const user = { username: username.value, password: password.value };
     AuthApiService.postLogin(user)
-      .then((loginResponse) => {
-        const {user_id, sub} = TokenService.readJwtToken(loginResponse.authToken)
+      .then(() => {
+        const {user_id, sub} = TokenService.readJwtToken()
         this.context.setUser({user_id, sub})
         this.init()
         this.props.history.push("/grocery-list-categories");
-        // this.props.onLoginSuccess()
       })
       .catch((res) => {
         this.setState({ error: res.error });
@@ -38,17 +37,22 @@ class Login extends React.Component {
   };
 
   init = () => {
-      const { user_id } = this.context.user
-      fetch(`${config.API_ENDPOINT}/lists/all/${user_id}`)
+      const {user_id} = TokenService.readJwtToken()
+      // console.log({token: TokenService.getAuthToken()})
+      fetch(`${config.API_ENDPOINT}/lists/all/${user_id}`, {
+        method: 'GET',
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${TokenService.getAuthToken()}`,
+        }
+      })
       .then(res => {
         if (!res.ok) {
           return res.json().then((error) => Promise.reject(error));
         }
         return res.json();
       }).then(lists => {
-          console.log(lists)
           this.context.initializeList(lists)
-      //   console.log(data)
       })
   }
 
